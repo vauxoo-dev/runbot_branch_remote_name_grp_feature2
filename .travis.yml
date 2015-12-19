@@ -32,7 +32,9 @@ install:
   - travis_install_nightly
 
 script:
+  - df -H
   - travis_run_tests
+  - df -H
 
 after_success:
   - travis_after_tests_success
