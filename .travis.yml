@@ -36,5 +36,6 @@ script:
   -    travis_run_tests    
   -       df -H
 
-after_success:
-  - travis_after_tests_success
+# Don't exists a module for get full coveralls data.
+# after_success:
+#   - travis_after_tests_success
