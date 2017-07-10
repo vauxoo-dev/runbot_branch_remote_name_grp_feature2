@@ -18,8 +18,12 @@ virtualenv:
   system_site_packages: true
 
 env:
-  - VERSION="8.0" ODOO_REPO="vauxoo/odoo" TESTS=1 LINT_CHECK=0 ODOO_LINT=0 INCLUDE=base
-  - VERSION="8.0" TESTS=0 LINT_CHECK=1 ODOO_LINT=1
+  global:
+  - VERSION="9.0" TESTS="0" LINT_CHECK="0" ODOO_LINT="0"
+
+  matrix:
+  - LINT_CHECK=1 ODOO_LINT=1
+  - ODOO_REPO="vauxoo/odoo" TESTS=1
 
 install:
   - git clone --single-branch --depth=1 https://github.com/OCA/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
@@ -31,3 +35,4 @@ script:
 
 after_success:
   - travis_after_tests_success
+
