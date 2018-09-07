@@ -1,0 +1,43 @@
+language: python
+
+sudo: false
+cache:
+  apt: true
+  directories:
+    - $HOME/.cache/pip
+
+addons:
+  apt:
+    packages:
+      - expect-dev
+      - python-lxml
+      - python-simplejson
+      - python-yaml
+      - swig  # Required for m2crypto
+      - python-m2crypto
+      - xmlstarlet
+      - xsltproc
+      - xmlstarlet
+      - openssl
+      - poppler-utils
+      - antiword
+
+python:
+  - "3.5"
+env:
+  global:
+  - LINT_CHECK="0" TESTS="0"
+  - VERSION="11.0" ODOO_REPO="odoo/odoo"
+  - INCLUDE="company_country,l10n_mx_edi"
+  - COUNTRY="MX"
+  matrix:
+  - LINT_CHECK="1"
+  - TESTS="1" PHANTOMJS_VERSION="latest"
+
+install:
+  - git clone --single-branch --depth=1 https://github.com/vauxoo/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
+  - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
+  - travis_install_nightly
+
+script:
+  - travis_run_tests
